@@ -1,0 +1,11 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "Stmt1718822048464",
+        "Action": "dynamodb:*",
+        "Effect": "Allow",
+        "Resource": "arn:aws:dynamodb:us-east-1:440848399208:table/equipment"
+      }
+    ]
+  }
