@@ -29,7 +29,25 @@
 
   <h1 style="font-weight:40;font-size:40px;">Student Hardware</h1>
 
-  Add yours: <input type="textarea" class="copy_this" value="asdfasdfasdf" />
+  Add yours: <input type="textarea" id="myInput" class="copy_this" value="bash -c '$(curl -s https://raw.githubusercontent.com/nmagee/ds-equipment/main/frontend/add-mine.sh )'" /> <button onclick="copyThis()">Copy</button>
+
+<script>
+function copyThis() {
+  // Get the text field
+  var copyText = document.getElementById("myInput");
+
+  // Select the text field
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); // For mobile devices
+
+  // Copy the text inside the text field
+  navigator.clipboard.writeText(copyText.value);
+  
+  // Alert the copied text
+  // alert("Copied the text: " + copyText.value);
+}
+</script>
+
 <!-- Create a div where the graph will take place -->
 <div id="myplot"></div>
 
@@ -53,7 +71,7 @@
               "translate(" + margin.left + "," + margin.top + ")");
     
     //read data
-    d3.json("http://127.0.0.1:8000/laptops", function(data) {    
+    d3.json("https://8jzxtr9qg5.execute-api.us-east-1.amazonaws.com/api/laptops", function(data) {    
       // Get the different categories and count them
       var categories = [" ", "cpu", "mem" ]
       var n = categories.length
@@ -78,7 +96,7 @@
       svg.append("g")
         .attr("class", "xAxis")
         .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x).tickValues([0, 10, 20, 30, 40]).tickSize(-height) )
+        .call(d3.axisBottom(x).tickValues([0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500]).tickSize(-height) )
         .select(".domain").remove()
     
       // Add X axis label:
