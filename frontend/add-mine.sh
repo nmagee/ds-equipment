@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 set -e
 
 read -p "Enter your UVA computing ID: " uid
