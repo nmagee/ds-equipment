@@ -1,7 +1,10 @@
 from chalice import Chalice
 from chalice import CORSConfig
 import boto3
+import botocore.exceptions
 
+
+# enable CORS for cross-site API requests
 cors_config = CORSConfig(
     allow_origin='*',
     allow_headers=['X-Special-Header'],
@@ -10,13 +13,16 @@ cors_config = CORSConfig(
     allow_credentials=True
 )
 
+# set up client objects and instantiate app
 ddb = boto3.client('dynamodb')
 ddbr = boto3.resource('dynamodb', region_name='us-east-1')
 app = Chalice(app_name='equipment-api')
 
+
+# routes + methods
 @app.route('/')
 def index():
-    return {'hello': 'world'}
+    return {'routes': ['/laptops']}
 
 @app.route('/laptops', methods=['POST','GET'], cors=cors_config)
 def track_laptop():
@@ -37,7 +43,7 @@ def track_laptop():
               ,'hds': {'S': hds}
           }
       )
-    except Exception as e:
+    except botocore.exceptions.ClientError as e:
       print(e)
     return {"status": 200}
   if request.method == 'GET':
@@ -45,13 +51,7 @@ def track_laptop():
       table = ddbr.Table('equipment')
       response = table.scan()
       data = response['Items']
-      # mem_vals = []
-      # cpu_vals = []
-      # for mv in data:
-      #   cpu_vals.append(mv['cpu'])
-      #   mem_vals.append(mv['mem'])
-      # return {"cpuvals": cpu_vals, "memvals": mem_vals}
       return data
-    except Exception as e:
+    except botocore.exceptions.ClientError as e:
       print(e)
 
