@@ -29,24 +29,7 @@
 
   <h1 style="font-weight:40;font-size:40px;">Student Hardware</h1>
 
-  Add yours: <input type="textarea" id="myInput" class="copy_this" value="bash -c '$(curl -s https://raw.githubusercontent.com/nmagee/ds-equipment/main/frontend/add-mine.sh )'" /> <button onclick="copyThis()">Copy</button>
-
-<script>
-function copyThis() {
-  // Get the text field
-  var copyText = document.getElementById("myInput");
-
-  // Select the text field
-  copyText.select();
-  copyText.setSelectionRange(0, 99999); // For mobile devices
-
-  // Copy the text inside the text field
-  navigator.clipboard.writeText(copyText.value);
-  
-  // Alert the copied text
-  // alert("Copied the text: " + copyText.value);
-}
-</script>
+  <p>To submit your hardware specifications, <a href="https://github.com/nmagee/ds-equipment/" target="_new">follow these steps</a>.</p>
 
 <!-- Create a div where the graph will take place -->
 <div id="myplot"></div>
